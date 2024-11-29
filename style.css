@@ -4,8 +4,8 @@ body {
 }
 
 header {
-    background-color: #f0f0f0;
-    padding: 20px;
+    background-color: #77DD77;
+    padding: 30px;
 }
 
 nav ul {
@@ -21,4 +21,14 @@ nav li {
 section {
     text-align: center;
     padding: 50px;
+}
+/* Footer */
+footer {
+    background-color: #000000; /* Màu nâu */
+    color: white; /* Chữ màu trắng để nổi bật */
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }

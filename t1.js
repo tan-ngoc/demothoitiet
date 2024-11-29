@@ -1,8 +1,11 @@
-// Giả lập dữ liệu thời tiết
-document.addEventListener("DOMContentLoaded", function () {
-    const temperature = 30; // Nhiệt độ giả lập
-    const humidity = 65;    // Độ ẩm giả lập
+// Lấy phần tử "Giới thiệu" từ menu
+const gioiThieuLink = document.querySelector('nav ul li a[href="#"]');
 
-    document.getElementById("temperature").textContent = temperature;
-    document.getElementById("humidity").textContent = humidity;
+// Lấy phần tử "Giới thiệu" cần hiển thị
+const gioiThieuSection = document.getElementById('gioiThieu');
+
+// Xử lý sự kiện khi nhấp vào
+gioiThieuLink.addEventListener('click', function (event) {
+    event.preventDefault(); // Ngăn chuyển hướng
+    gioiThieuSection.style.display = 'block'; // Hiển thị phần tử
 });
