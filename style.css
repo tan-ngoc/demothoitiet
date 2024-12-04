@@ -9,10 +9,10 @@ body {
 
 /* Header */
 header {
-    background-color: #77DD77;
-    padding: 30px;
-    text-align: left;
-    border-bottom: 2px solid #5bb55b; /* Tạo viền dưới header */
+    background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+
 }
 
 header h1 {
@@ -78,10 +78,10 @@ section img {
 
 /* Footer */
 footer {
-    background-color: #333; /* Màu xám đậm */
+    background-color: #000000; /* Màu xám đậm */
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 10px 0;
     position: fixed;
     width: 100%;
     bottom: 0;

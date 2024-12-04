@@ -3,6 +3,93 @@
 <head>
     <title>Hiển Thị Thông Tin</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        section {
+            padding: 20px;
+        }
+        #infoBox {
+            background-color: #fff;
+            border: 2px solid #007BFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+        }
+        #infoBox h2 {
+            color: #007BFF;
+            font-size: 28px;
+            margin: 0 0 10px;
+        }
+        #datetime {
+            color: #555;
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        /* Màn hình LED */
+        #ledScreen {
+            background-color: black;
+            color: red;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            text-align: left;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+            border: 3px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            line-height: 1.8;
+            position: relative;
+        }
+        /* Ký hiệu trang trí */
+        .icon {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0.8;
+        }
+        .icon-sun {
+            color: #FFD700;
+            top: -30px;
+            right: 20px;
+        }
+        .icon-cloud {
+            color: #B0C4DE;
+            top: -30px;
+            left: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,19 +105,63 @@
     </header>
 
     <section>
-        <h2>HIỂN THỊ THÔNG TIN THỜI TIẾT RA BẢNG LED</h2>
-           </section>
-
-    <section id="gioiThieu" style="display: none;">
-        <h2>Giới thiệu</h2>
-        <p>Chào mừng thầy và các bạn đến với web đề tài của nhóm 20.</p>
+        <div id="infoBox">
+            <h2>HIỂN THỊ THÔNG TIN THỜI TIẾT</h2>
+            <div id="datetime"></div>
+        </div>
+        <div id="ledScreen">
+            <div class="icon icon-sun">☀</div>
+            <div class="icon icon-cloud">☁</div>
+            <div id="universityName">Trường Đại học Nông Lâm TP.HCM</div>
+            <div id="ledDateTime">Ngày giờ: Đang cập nhật...</div>
+            <div id="ledWeather">Dự báo mưa: Đang cập nhật...</div>
+            <div id="ledWindSpeed">Tốc độ gió: -- km/h</div>
+            <div id="ledTempHumidity">Nhiệt độ: -- °C | Độ ẩm: -- %</div>
+        </div>
     </section>
 
     <footer>
-	<p>© 2024 Nhóm 20 - Lớp DH21TD</p>
-        <p>Đồ án IOT và Ứng Dụng<p>
+        <p>© 2024 Nhóm 20 - Lớp DH21TD</p>
+        <p>Đồ án IOT và Ứng Dụng</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Hiển thị ngày và thời gian thực
+        function updateDateTime() {
+            const now = new Date();
+            const datetimeElement = document.getElementById('datetime');
+            datetimeElement.textContent = now.toLocaleString('vi-VN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            // Cập nhật ngày giờ trên bảng LED
+            const ledDateTimeElement = document.getElementById('ledDateTime');
+            ledDateTimeElement.textContent = `Ngày giờ: ${now.toLocaleString('vi-VN')}`;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Cập nhật màn hình LED với dữ liệu thời tiết
+        function updateLedScreen() {
+            const ledWeather = document.getElementById('ledWeather');
+            const ledWindSpeed = document.getElementById('ledWindSpeed');
+            const ledTempHumidity = document.getElementById('ledTempHumidity');
+
+            // Dự báo mưa giả lập
+            const weatherForecast = "Không mưa"; // Có thể cập nhật bằng dữ liệu thực
+            const windSpeed = 15; // Tốc độ gió giả lập (km/h)
+
+            ledWeather.textContent = `Dự báo mưa: ${weatherForecast}`;
+            ledWindSpeed.textContent = `Tốc độ gió: ${windSpeed} km/h`;
+            ledTempHumidity.textContent = `Nhiệt độ: 28°C | Độ ẩm: 65%`; // Dữ liệu giả lập
+        }
+        updateLedScreen();
+    </script>
 </body>
 </html>

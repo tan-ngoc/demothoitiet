@@ -2,7 +2,99 @@
 <html>
 <head>
     <title>GIỚI THIỆU - Nhóm 20</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Định dạng chung */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            letter-spacing: 2px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #0056b3;
+        }
+        section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        section h2 {
+            color: #007BFF;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        section p {
+            color: #555;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+        /* Hộp trực quan */
+        #infoBox {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+        }
+        #infoBox:before {
+            content: "🌤️";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+        }
+        #infoBox h3 {
+            color: #007BFF;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        #infoBox p {
+            color: #333;
+            font-size: 18px;
+            text-align: justify;
+            margin: 0;
+        }
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -19,15 +111,16 @@
     </header>
 
     <section>
-        <h2>Giới thiệu</h2>
-        <p>Chào mừng thầy và các bạn đến với web của nhóm 20.</p>
-	<p>Đề tài của nhóm là thu thập dữ liệu thời tiết từ các cảm biến và hiển thị lên bảng LED.</p>
+        <h2>GIỚI THIỆU</h2>
+        <div id="infoBox">
+            <h3>Chào mừng!</h3>
+            <p>Chào mừng thầy và các bạn đến với web của nhóm 20. Đề tài của nhóm là thu thập dữ liệu thời tiết từ các cảm biến và hiển thị lên bảng LED. Hệ thống được thiết kế nhằm ứng dụng IoT trong lĩnh vực giám sát môi trường.</p>
+        </div>
     </section>
-	
 
     <footer>
-	<p>© 2024 Nhóm 20 - Lớp DH21TD</p>
-        <p>Đồ án IOT và Ứng Dụng<p>
+        <p>© 2024 Nhóm 20 - Lớp DH21TD</p>
+        <p>Đồ án IOT và Ứng Dụng</p>
     </footer>
 </body>
 </html>

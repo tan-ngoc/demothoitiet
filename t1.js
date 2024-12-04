@@ -1,11 +1,15 @@
-// Lấy phần tử "Giới thiệu" từ menu
-const gioiThieuLink = document.querySelector('nav ul li a[href="#"]');
+async function fetchData() {
+    try {
+        const response = await fetch('http://192.168.242.90/'); // Thay <ESP32_IP> bằng IP của ESP32
+        const data = await response.json();
+        document.querySelector("section").innerHTML = `
+            <h2>HIỂN THỊ THÔNG TIN THỜI TIẾT RA BẢNG LED</h2>
+            <p>Nhiệt độ: ${data.temperature} °C</p>
+            <p>Độ ẩm: ${data.humidity} %</p>
+        `;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
 
-// Lấy phần tử "Giới thiệu" cần hiển thị
-const gioiThieuSection = document.getElementById('gioiThieu');
-
-// Xử lý sự kiện khi nhấp vào
-gioiThieuLink.addEventListener('click', function (event) {
-    event.preventDefault(); // Ngăn chuyển hướng
-    gioiThieuSection.style.display = 'block'; // Hiển thị phần tử
-});
+setInterval(fetchData, 5000); // Lấy dữ liệu mỗi 5 giây
