@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>thong tin đe tai</title>
+    <link href="https://binhphuoc.gov.vn/uploads/binhphuoc/news/2022_01/trong-cay-xanh.png" rel="stylesheet">
+    <style>
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+             background: url('https://th.bing.com/th/id/OIP.gS1FDQBpNNGlyFRh7_iRyQHaEK?rs=1&pid=ImgDetMain')
+    no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: rgba(52, 152, 219, 0.9);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            
+            width: 37%;
+            margin-bottom: 30px;
+        }
+
+        .header-container h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .header-container p {
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-top: 10px;
+        }
+        
+        section {
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        section p, section ul {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background-color: rgba(52, 73, 94, 0.9);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+        }
+        footer a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 25px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #2980b9;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .marquee {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #000;
+            color: #fff;
+            font-size: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scrollText 20s linear infinite;
+        }
+        @keyframes scrollText {
+            0% {
+                transform: translateX(10%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+       #info {
+            width: 100%;
+            overflow-x: auto;
+            padding-top: 30px; 
+            margin: 35px auto; 
+        }
+
+        table {
+            padding-top: 100px;
+            margin: 20px auto; 
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        
+        .side-menu {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            background: rgba(41, 128, 185, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            transition: width 0.3s;
+            overflow: hidden;
+        }
+
+        .side-menu .menu-content {
+            display: none;
+            flex-direction: column;
+        }
+
+        .side-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            display: block;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .side-menu a:hover {
+            background: rgba(22, 97, 171, 0.9);
+        }
+
+
+        .toggle-btn {
+            color: white;
+            font-size: 1.0em;
+            cursor: pointer;
+            text-align: center;
+            padding: 3px;
+        }
+
+        .left-menu {
+            background-color: #32CD32; 
+            left: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+      
+        .right-menu {
+            background-color: #32CD32;
+            right: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        .menu-content {
+            background-color: #32CD32; 
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu-content a {
+            margin: 5px 0;
+            display: block;
+            text-align: center;
+        }
+
+        .menu-content img {
+            width: 50px; 
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .menu-content img:hover {
+            background-color: #32CD32; 
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <h1>Truong Dai Hoc Nong Lam TP HCM</h1>
+        <p>Khoa Co Khi- Cong Nghe</p>
+    </div>
+</header>
+
+<div class="side-menu left-menu">
+    <div class="toggle-btn" onclick="toggleMenu('left')">&lt;</div>
+    <div class="menu-content">
+        <a href="https://nchmf.gov.vn/Kttv/vi-VN/1/index.html">
+        <img src="https://kttv.gov.vn/upload/Article/thoitiet/2025/1/25/dong_bien.jpg" alt="thời tiết">
+        <span>   thoi tiet hom nay</span>
+    </a>
+    <a href="https://phuongthaogarden.vn/ky-thuat-trong-rau-trong-nha-mang-huong-dan-cho-nguoi-moi-bat-dau/">
+        <img src="https://phuongthaogarden.vn/wp-content/uploads/2024/07/ky-thuat-trong-rau-trong-nha-mang.jpg" alt="Anh 2">
+        <span>ky thuat trong nha mang</span>
+    </a>
+    <a href="https://xuannong.vn/ky-thuat-trong/uu-va-nhuoc-diem-cua-nha-mang-va-nha-luoi-trong-nong-nghiep-bid137.html">
+        <img src="https://xuannong.vn/images/nha-mang-san-thuong.jpg" alt="Anh 3">
+        <span>uu, nhuoc diem cua cac loai nha mang</span>
+    </a>
+    <a href="https://hoangdunggreen.com/chi-phi-lam-nha-mang-nong-nghiep/">
+        <img src="https://th.bing.com/th/id/OIP.lx_dziOGRXuI0JIlFsvmZAHaE9?rs=1&pid=ImgDetMain" alt="Anh 4">
+        <span>chi phí nha mang</span>
+    </a>
+    <a href="https://phulamtay.com/nha-mang-la-gi/">
+        <img src="https://img.agriexpo.online/images_ag/photo-g/173485-11622218.jpg" alt="Ảnh 5">
+        <span>khai niem nha mang</span>
+    </a>
+    </div>
+</div>
+
+<div class="side-menu right-menu">
+    <div class="toggle-btn" onclick="toggleMenu('right')">&gt;</div>
+    <div class="menu-content">
+    <a href="https://khuyennongvn.gov.vn/khoa-hoc-cong-nghe/khcn-trong-nuoc/ky-thuat-trong-dua-luoi-tren-gia-the-trong-nha-mang-19550.html">
+        <img src="https://ncppb.com/wp-content/uploads/2022/12/ky-thuat-trong-dua-luoi-trong-nha-mang.png" alt="Anh 1">
+        <span>ky thuat trong dua luoi</span>
+    </a>
+    <a href="https://quangon.vn/bai-viet/loi-ich-cua-dua-luoi-cho-suc-khoe">
+        <img src="https://quangon.vn/resources/2021/04/07/loi-ich-suc-khoe-cua-dua-luoi-1.jpg" alt="Anh 2">
+        <span>loi ich dua luoi doi voi suc khoe</span>
+    </a>
+    <a href="https://nuoitrong.com/cay-dua-luoi.html">
+        <img src="https://nuoitrong.com/wp-content/uploads/2023/10/cay-dua-luoi.jpeg" alt="Anh 3">
+        <span>dac diem, cach trong cay dung ky thuat</span>
+    </a>
+    <a href="https://caodang.fpt.edu.vn/tin-tuc-poly/xu-ly-anh-image-processing-cong-nghe-dang-dinh-hinh-tuong-lai.html#:~:text=%E1%BB%A8ng%20d%E1%BB%A5ng%20c%E1%BB%A7a%20X%E1%BB%AD%20l%C3%BD%20%E1%BA%A3nh%201%20Y,v%C3%A0%20nh%E1%BA%ADn%20d%E1%BA%A1ng%20khu%C3%B4n%20m%E1%BA%B7t.%20...%20More%20items">
+        <img src="https://static.vegafintech.vn/img.upload/xu-ly-du-lieu-hinh-anh-la-gi.jpg" alt="Anh 4">
+        <span>xu ly anh</span>
+    </a>
+    <a href="https://vegafintech.vn/vi/xu-ly-hinh-anh">
+        <img src="https://static.vegafintech.vn/img.upload/du-lieu-hinh-anh-la-gi.jpg" alt="Anh 5">
+        <span>vai tro xu ly anh</span>
+    </a>
+    </div>
+</div>
+<script>
+function toggleMenu(side) {
+    let menu = document.querySelector(`.${side}-menu`);
+    let content = menu.querySelector(".menu-content");
+    let button = menu.querySelector(".toggle-btn");
+
+    if (menu.style.width === "200px") {
+        menu.style.width = "50px";
+        content.style.display = "none";
+        button.innerHTML = (side === "left") ? "&lt;" : "&gt;";
+    } else {
+        menu.style.width = "200px";
+        content.style.display = "flex";
+        button.innerHTML = (side === "left") ? "&gt;" : "&lt;";
+    }
+}
+</script>
+
+<section id="info">
+    <table>
+        <tr>
+            <th>Muc Tieu De Tai</th>
+            <th>Cac Thanh Phan Chinh Cua He Thong</th>
+            <th>Ung Dung Xu Ly Anh</th>
+            <th>Loi Ich Cua He Thong</th>
+            <th>Cong Nghe & Cong Cu Su Dung</th>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    <li>Xay dung he thong tu dong cham soc dua luoi trong nha mang</li>
+                    <li>Ung dung xu ly anh de theo doi su phat trien cua cay</li>
+                    <li>Phat hien som cac benh tren la de co bien phap xu ly kip thoi</li>
+                    <li>Dieu khien tuoi nuoc, bon phan tu dong theo lich trinh hoac theo dieu kien thuc te</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Camera tren he thong rong roc: Chup anh cay tu nhieu goc do khac nhau</li>
+                    <li>Cam bien moi truong: Do do am dat, anh sang, nhiet do de dieu chinh dieu kien cham soc</li>
+                    <li>Bo xu ly trung tam (ESP32 ket hop voi may tinh AI): Xu ly hinh anh va dieu khien thiet bi</li>
+                    <li>Web Control Panel: Cung cap giao dien de nguoi dung giam sat va dieu khien he thong</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Phat hien benh tren la (benh nam, chay la, thieu dinh duong, sau benh, ...)</li>
+                    <li>Phan tich mau sac la de danh gia tinh trang suc khoe cay</li>
+                    <li>Nhan dien giong cay de phan biet dua luoi voi cac loai cay khac</li>
+                    <li>Theo doi su phat trien cua cay bang cach so sanh hinh anh theo thoi gian</li>
+                    <li>Dem so luong la va trai de danh gia nang suat cay trong</li>
+                    <li>Tinh toan cac chi so NDVI, GLI de phan tich tinh trang quang hop</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Giúp nong dan giam sat cay trong tu xa, tiet kiem thoi gian</li>
+                    <li>Tu dong hoa tuoi nuoc, bon phan, giup toi uu hoa nguon tai nguyen</li>
+                    <li>Phat hien som benh tren cay, giam thieu rui ro dich benh lay lan</li>
+                    <li>Phan tich du lieu sinh truong, giup toi uu hoa quy trinh canh tac</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Phan cung: Raspberry Pi / ESP32, Camera AI, Cam bien do am, nhiet do, anh sang</li>
+                    <li>Phan mem: Python, OpenCV, TensorFlow/PyTorch, Web (Flask/Django + React/Vue)</li>
+                    <li>Mang ket noi: Wi-Fi, MQTT de giao tiep giua cac thiet bi</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</section>
+<div class="marquee">
+   <span> <i class="fas fa-home"></i> Giang Vien Huong dan: Th/s Cao Đuc Loi  __ <i class="fa fa-user"></i> Truong Van Nguyen 21138151 __ <i class="fa fa-user"></i> Nguyen Ngoc Tan 21138174</span>
+</div>
+
+<footer>
+    <p>&copy; 2025 He Thong Cham Soc Dua Luoi Trong Nha Mang Su Dung Xu Ly Anh</p>
+    <p>DH21TD - Đe Tai 2</p>
+    <p><i class="fas fa-school"></i></p>
+</footer>
+
+</body>
+</html>  
+
+
