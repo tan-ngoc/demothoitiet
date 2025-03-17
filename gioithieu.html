@@ -1,126 +1,328 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>GIỚI THIỆU - Nhóm 20</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Xu Ly Anh</title>
     <style>
-        /* Định dạng chung */
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+            box-sizing: border-box;
         }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://th.bing.com/th/id/OIP.3XG0UEeBSGNEsBhvzXuxGgHaEK?rs=1&pid=ImgDetMain')
+    no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
         header {
-            background-color: #007BFF;
+            background-color: rgba(52, 152, 219, 0.9);
             color: white;
-            padding: 20px;
             text-align: center;
+            padding: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
-        header h1 {
-            margin: 0;
-            font-size: 36px;
+        .header-container h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
             letter-spacing: 2px;
         }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 0 0;
+        .header-container p {
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-top: 10px;
+        }
+        
+        main {
             display: flex;
+            flex-direction: row;
             justify-content: center;
-            gap: 20px;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
         }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        nav ul li a:hover {
-            background-color: #0056b3;
-        }
-        section {
+
+     
+        .camera-section, .processing-section {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding: 50px 20px;
-        }
-        section h2 {
-            color: #007BFF;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-        section p {
-            color: #555;
-            font-size: 20px;
-            line-height: 1.8;
-        }
-        /* Hộp trực quan */
-        #infoBox {
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 30px;
             position: relative;
         }
-        #infoBox:before {
-            content: "🌤️";
+
+        .camera-section::after {
+            content: "";
             position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 50px;
+            top: 10%;
+            right: -15px;
+            width: 2px;
+            height: 80%;
+            background: rgba(0, 0, 0, 0.2);
         }
-        #infoBox h3 {
-            color: #007BFF;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        #infoBox p {
+
+        .camera-section h1, .processing-section h1 {
+            font-size: 22px;
             color: #333;
-            font-size: 18px;
-            text-align: justify;
-            margin: 0;
+            margin-bottom: 20px;
         }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border: 2px dashed #888;
+            border-radius: 10px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            width: 100%;
+            max-width: 250px;
+        }
+
+        input {
+            background: #444;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
         footer {
-            background-color: #f1f1f1;
+            background-color: rgba(52, 73, 94, 0.9);
+            color: white;
             text-align: center;
             padding: 20px 0;
-            margin-top: 20px;
-            color: #555;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+            margin-bottom: 14px;
+        }
+        footer a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            background-color: #2980b9;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            margin-top: 
+        }
+        
+
+        .marquee {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #000;
+            color: #fff;
+            font-size: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scrollText 20s linear infinite;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(10%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .camera-section, .processing-section {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+         footer .back-button {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #2980b9;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>NHÓM 20</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="gioithieu.html">Giới thiệu</a></li>
-                <li><a href="yeucau.html">Yêu cầu</a></li>
-                <li><a href="#">Mục tiêu</a></li>
-                <li><a href="lienhe.html">Liên hệ</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <div class="header-container">
+        <h1>Truong Dai Hoc Nong Lam TP HCM</h1>
+        <p>Khoa Co Khi- Cong Nghe</p>
+    </div>
+</header>
 
-    <section>
-        <h2>GIỚI THIỆU</h2>
-        <div id="infoBox">
-            <h3>Chào mừng!</h3>
-            <p>Chào mừng thầy và các bạn đến với web của nhóm 20. Đề tài của nhóm là thu thập dữ liệu thời tiết từ các cảm biến và hiển thị lên bảng LED. Hệ thống được thiết kế nhằm ứng dụng IoT trong lĩnh vực giám sát môi trường.</p>
+    <main>
+        <div class="camera-section">
+            <h1>📸 Camera & Tai Hinh</h1>
+            <div class="video-container">
+                <video id="camera" autoplay></video>
+                <button onclick="startCamera()">📷 Bat Camera</button>
+            </div>
+            <div class="canvas-container">
+                <input type="file" id="upload" accept="image/*" onchange="loadImage(event)">
+                <canvas id="canvas"></canvas>
+            </div>
         </div>
-    </section>
 
-    <footer>
-        <p>© 2024 Nhóm 20 - Lớp DH21TD</p>
-        <p>Đồ án IOT và Ứng Dụng</p>
-    </footer>
+        <div class="processing-section">
+            <h1>🔍 Xu ly anh cay trong</h1>
+            <div class="button-container">
+                <button onclick="detectDisease()">🦠Phat hien benh</button>
+                <button onclick="analyzeColor()">🌿Phan tich mau sac la</button>
+                <button onclick="identifyPlant()">🌾Nhan dien loai cay</button>
+                <button onclick="trackGrowth()">📊Theo doi phat trien</button>
+                <button onclick="countLeaves()">🔢Đem so luong la/qua</button>
+                <button onclick="estimateNDVI()">🌍Uoc tinh chi so suc khoe (NDVI, GLI)</button>
+            </div>
+        </div>
+    </main>
+
+<div class="marquee">
+   <span> <i class="fas fa-home"></i> Giang Vien Huong dan: Th/s Cao Đuc Loi  __ <i class="fa fa-user"></i> Truong Van Nguyen 21138151 __ <i class="fa fa-user"></i> Nguyen Ngoc Tan 21138174</span>
+</div>
+
+<footer>
+    <p>&copy; 2025 He Thong Cham Soc Dua Luoi Trong Nha Mang Su Dung Xu Ly Anh</p>
+    <p>DH21TD - Đe Tai 2</p>
+    <p><i class="fas fa-school"></i></p>
+</footer>
+
+    <script>
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    document.getElementById('camera').srcObject = stream;
+                })
+                .catch(error => {
+                    console.error("loi khi mo camera:", error);
+                });
+        }
+
+        function loadImage(event) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function detectDisease() {
+            alert("se đuoc them sau!");
+        }
+
+        function analyzeColor() {
+            alert("se đuoc them sau!");
+        }
+
+        function identifyPlant() {
+            alert("se đuoc them sau!");
+        }
+
+        function trackGrowth() {
+            alert("se đuoc them sau!");
+        }
+
+        function countLeaves() {
+            alert("se đuoc them sau!");
+        }
+
+        function estimateNDVI() {
+            alert("se đuoc them sau!");
+        }
+    </script>
 </body>
 </html>
+
+
