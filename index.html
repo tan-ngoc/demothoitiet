@@ -244,51 +244,55 @@ footer p {
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-    async function fetchWeather() {
-        const apiKey = "AIzaSyDe0ckQHkCBHGWQARoCTvIo1T1WEUHXlvk";
-        const lat = "10.762622"; // Vĩ độ TP HCM
-        const lon = "106.660172"; // Kinh độ TP HCM
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=vi`;
-        
+  
+    const apiKey = "c05417eac917208d896aa3f9cff02ac9";
+    const city = "Ho Chi Minh"; // Bạn có thể thay đổi thành thành phố mong muốn
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=vi`;
+
+    async function fetchWeatherData() {
         try {
-            const response = await fetch(url);
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error("Không thể lấy dữ liệu thời tiết");
+            }
             const data = await response.json();
             
-            document.getElementById("temperature").textContent = `${data.main.temp} °C`;
-            document.getElementById("humidity").textContent = `${data.main.humidity} %`;
-            document.getElementById("wind").textContent = `${data.wind.speed} m/s`;
-            document.getElementById("rain").textContent = data.rain ? `${data.rain["1h"] || 0} mm` : "0 mm";
+            document.getElementById("temp").innerText = `${data.main.temp} °C`;
+            document.getElementById("humidity").innerText = `${data.main.humidity} %`;
+            document.getElementById("wind").innerText = `${data.wind.speed} m/s`;
+            document.getElementById("rain").innerText = data.rain ? `${data.rain["1h"]} mm` : "0 mm";
         } catch (error) {
-            console.error("Lỗi khi lấy dữ liệu thời tiết:", error);
+            console.error("Lỗi lấy dữ liệu thời tiết:", error);
         }
     }
-    fetchWeather();
+
+    fetchWeatherData();
+    setInterval(fetchWeatherData, 60000); // Cập nhật mỗi phút
 </script>
 
 <div class="data-cards-wrapper">
- <div class='data-card'>
-  <h3>Nhiệt Độ</h3>
-  <img src='https://wisevietnam.vn/wp-content/uploads/2022/05/nhiet-do-la-gi-wisevietnam.vn-1.jpg' alt='Nhiệt độ'>
-  <p id="temperature">Đang tải...</p>
+    <div class='data-card'>
+        <h3>Nhiệt Độ</h3>
+        <img src='https://wisevietnam.vn/wp-content/uploads/2022/05/nhiet-do-la-gi-wisevietnam.vn-1.jpg' alt='Nhiệt độ'>
+        <p id="temp">Đang tải...</p>
+    </div>
+    <div class='data-card'>
+        <h3>Độ Ẩm</h3>
+        <img src='https://s3da-design.com/wp-content/uploads/2022/08/air-6550773_960_720-300x197.jpg' alt='Độ ẩm'>
+        <p id="humidity">Đang tải...</p>
+    </div>
+    <div class='data-card'>
+        <h3>Lưu Lượng Gió</h3>
+        <img src='https://th.bing.com/th/id/OIP.TYn8jE0t7pkwsVUStKVNcQHaE4?rs=1&pid=ImgDetMain' alt='Gió'>
+        <p id="wind">Đang tải...</p>
+    </div>
+    <div class='data-card'>
+        <h3>Lượng Mưa</h3>
+        <img src='https://th.bing.com/th/id/OIP.Kp288536io66hZPsfks3qQHaEV?w=820&h=480&rs=1&pid=ImgDetMain' alt='Mưa'>
+        <p id="rain">Đang tải...</p>
+    </div>
 </div>
 
-<div class='data-card'>
-  <h3>Độ Ẩm</h3>
-  <img src='https://s3da-design.com/wp-content/uploads/2022/08/air-6550773_960_720-300x197.jpg' alt='Độ ẩm'>
-  <p id="humidity">Đang tải...</p>
-</div>
-
-<div class='data-card'>
-  <h3>Lưu Lượng Gió</h3>
-  <img src='https://th.bing.com/th/id/OIP.TYn8jE0t7pkwsVUStKVNcQHaE4?rs=1&pid=ImgDetMain' alt='gió'>
-  <p id="wind">Đang tải...</p>
-</div>
-
-<div class='data-card'>
-  <h3>Lượng Mưa</h3>
-  <img src='https://th.bing.com/th/id/OIP.Kp288536io66hZPsfks3qQHaEV?w=820&h=480&rs=1&pid=ImgDetMain' alt='mưa'>
-  <p id="rain">Đang tải...</p>
-</div>
 
 
 <main class="home-container"> 
