@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Giám Sát & Điều Khiển Cây Trồng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #004d40, #00796b);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .motor-control {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            width: 600px;
+            backdrop-filter: blur(12px);
+        }
+        button {
+            background: #4caf50;
+            color: white;
+            font-size: 22px;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        button:hover {
+            background: #388e3c;
+            transform: scale(1.1);
+        }
+        .slider {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .info {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+        label {
+            font-size: 20px;
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="motor-control">
+        <h1>🌱 Giám Sát & Điều Khiển Động Cơ</h1>
+        <button onclick="sendCommand('cw')">🔄 Quay Thuận</button>
+        <button onclick="sendCommand('ccw')">↩️ Quay Nghịch</button>
+        <button onclick="sendCommand('start')">▶️ Bắt Đầu</button>
+        <button onclick="sendCommand('stop')">⏹ Dừng</button>
+        <label for="speed">⚡ Tốc độ (RPM): <span id="speedValue">50</span></label>
+        <input type="range" id="speed" class="slider" min="10" max="200" value="50" oninput="updateSpeed(this.value)">
+        <div class="info">Tốc độ hiện tại: <span id="currentSpeed">0</span> RPM</div>
+    </div>
+
+    <script>
+        const ws = new WebSocket("ws://raspberrypi:8765"); // Cập nhật địa chỉ Raspberry Pi nếu cần
+
+        function sendCommand(command) {
+            ws.send(JSON.stringify({ command: command }));
+        }
+
+        function updateSpeed(value) {
+            document.getElementById("speedValue").textContent = value;
+            ws.send(JSON.stringify({ command: "speed", value: value }));
+        }
+
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            if (data.speed) {
+                document.getElementById("currentSpeed").textContent = data.speed;
+            }
+        };
+    </script>
+</body>
+</html>
