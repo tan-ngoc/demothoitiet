@@ -24,8 +24,15 @@
         header {
             width: 100%;
             background: #2980b9;
-            padding: 20px 0;
+            padding: 15px 0;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 10px;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
@@ -38,7 +45,7 @@
         }
         h1 {
             font-size: 28px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .button-group {
             display: flex;
@@ -99,7 +106,15 @@
             font-weight: bold;
             color: #f1c40f;
         }
-        footer .back-button {
+        footer {
+            width: 100%;
+            background: #2c3e50;
+            padding: 15px 0;
+            margin-top: auto;
+            font-size: 14px;
+            color: white;
+        }
+        .back-button {
             display: inline-block;
             margin-top: 5px;
             padding: 10px 20px;
@@ -112,18 +127,12 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
         }
-        footer {
-            width: 100%;
-            background: #2c3e50;
-            padding: 15px 0;
-            margin-top: auto;
-            font-size: 14px;
-            color: white;
-        }
     </style>
 </head>
 <body>
+
     <header>
+        <img src="Logo_HCMUAF.svg.png" alt="Logo Dai Hoc Nong Lam" class="logo">
         <h1>Truong Dai Hoc Nong Lam TP HCM</h1>
         <p>Khoa Co Khi - Cong Nghe</p>
     </header>
@@ -163,7 +172,8 @@
     <footer>
         <p>&copy; 2025 He Thong Cham Soc Dua Luoi Trong Nha Mang</p>
         <p>DH21TD - De Tai 2</p>
-         <a href="index.html" class="back-button">Quay Lại Trang Chủ</a>
+         <a href="index.html" class="back-button">Quay Lai Trang Chu</a>
     </footer>
+
 </body>
 </html>
