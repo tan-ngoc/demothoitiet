@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Giám Sát & Điều Khiển Cây Trồng</title>
+    <title>Giam Sat & Dieu Khien Cay Trong</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             text-align: center;
             padding: 20px;
         }
-        .motor-control {
+        .khung-dieu-khien {
             background: rgba(255, 255, 255, 0.15);
             padding: 40px;
             border-radius: 20px;
@@ -46,9 +46,27 @@
             background: #388e3c;
             transform: scale(1.1);
         }
-        .slider {
+        .thanh-keo {
+            -webkit-appearance: none;
             width: 100%;
-            margin-top: 20px;
+            height: 15px;
+            background: linear-gradient(to right, #ff9800, #f44336);
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .thanh-keo:hover {
+            transform: scale(1.05);
+        }
+        .thanh-keo::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .info {
             margin-top: 25px;
@@ -85,49 +103,47 @@
         }
     </style>
 </head>
-    <header>
-    <div class="header-container">
-        <h1>Truong Dai Hoc Nong Lam TP HCM</h1>
-        <p>Khoa Co Khi- Cong Nghe</p>
-    </div>
-</header>
 <body>
-    <div class="motor-control">
-        <h1>🌱 Giám Sát & Điều Khiển Động Cơ</h1>
-        <button onclick="sendCommand('cw')">🔄 Quay Thuận</button>
-        <button onclick="sendCommand('ccw')">↩️ Quay Nghịch</button>
-        <button onclick="sendCommand('start')">▶️ Bắt Đầu</button>
-        <button onclick="sendCommand('stop')">⏹ Dừng</button>
-        <label for="speed">⚡ Tốc độ (RPM): <span id="speedValue">50</span></label>
-        <input type="range" id="speed" class="slider" min="10" max="200" value="50" oninput="updateSpeed(this.value)">
-        <div class="info">Tốc độ hiện tại: <span id="currentSpeed">0</span> RPM</div>
+    <header>
+        <h1>Truong Dai Hoc Nong Lam TP HCM</h1>
+        <p>Khoa Co Khi - Cong Nghe</p>
+    </header>
+
+    <div class="khung-dieu-khien">
+        <h1>🌱 Giam Sat & Dieu Khien Dong Co</h1>
+        <button onclick="guiLenh('thuan')">🔄 Quay Thuan</button>
+        <button onclick="guiLenh('nghich')">↩️ Quay Nghich</button>
+        <button onclick="guiLenh('batdau')">▶️ Bat Dau</button>
+        <button onclick="guiLenh('dung')">⏹ Dung</button>
+        <label for="tocdo">⚡ Toc do (RPM): <span id="giatriTocDo">50</span></label>
+        <input type="range" id="tocdo" class="thanh-keo" min="10" max="200" value="50" oninput="capNhatTocDo(this.value)">
+        <div class="info">Toc do hien tai: <span id="tocDoHienTai">0</span> RPM</div>
     </div>
 
     <script>
-        const ws = new WebSocket("ws://raspberrypi:8765"); // Cập nhật địa chỉ Raspberry Pi nếu cần
+        const ws = new WebSocket("ws://raspberrypi:8765"); // Cap nhat dia chi Raspberry Pi neu can
 
-        function sendCommand(command) {
-            ws.send(JSON.stringify({ command: command }));
+        function guiLenh(lenh) {
+            ws.send(JSON.stringify({ lenh: lenh }));
         }
 
-        function updateSpeed(value) {
-            document.getElementById("speedValue").textContent = value;
-            ws.send(JSON.stringify({ command: "speed", value: value }));
+        function capNhatTocDo(value) {
+            document.getElementById("giatriTocDo").textContent = value;
+            ws.send(JSON.stringify({ lenh: "tocdo", giatri: value }));
         }
 
         ws.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            if (data.speed) {
-                document.getElementById("currentSpeed").textContent = data.speed;
+            if (data.tocdo) {
+                document.getElementById("tocDoHienTai").textContent = data.tocdo;
             }
         };
     </script>
-    <footer>
-        <p>&copy; 2025 Hệ Thống Chăm Sóc Dưa Lưới Trong Nhà Màng Sử Dụng Xử Lý Ảnh</p>
-        <p>DH21TD - Đề Tài 2</p>
-        <a href="index.html" class="back-button">Quay Lại Trang Chủ</a>
-          <p><i class="fas fa-school"></i></p>
-    </footer>
 
+    <footer>
+        <p>&copy; 2025 He Thong Cham Soc Dua Luoi Trong Nha Mang Su Dung Xu Ly Anh</p>
+        <p>DH21TD - De Tai 2</p>
+        <a href="index.html" class="nut-quay-lai">Quay Lai Trang Chu</a>
+    </footer>
 </body>
 </html>
