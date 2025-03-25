@@ -259,6 +259,10 @@
     <h1>📷 Ảnh Chụp</h1>
     <img id="capturedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
 </div>
+        <div class="processing-section">
+    <h1>🎨 Ảnh Sau Xử Lý</h1>
+    <img id="processedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
+</div>
 
         <div class="processing-section">
             <h1>🔍 Xu ly anh cay trong</h1>
@@ -285,6 +289,31 @@
 </footer>
 
     <script>
+        function captureAndProcessImage() {
+    let video = document.getElementById('camera');
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob((blob) => {
+        let formData = new FormData();
+        formData.append("image", blob, "capture.jpg");
+
+        fetch("http://127.0.0.1:5000/process_image", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            let imgTag = document.getElementById('processedImage');
+            imgTag.src = "data:image/jpeg;base64," + data.processed_image;
+        });
+    }, "image/jpeg");
+}
+
         function captureImage() {
     let video = document.getElementById('camera');
     let canvas = document.getElementById('canvas');
