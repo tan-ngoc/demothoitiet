@@ -315,20 +315,30 @@
     }, "image/jpeg");
 }
 
-        function captureImage() {
-    let video = document.getElementById('camera');
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
+       function captureImage() {
+            let video = document.getElementById("video");
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
 
-    // Lấy kích thước video và vẽ lên canvas
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Hiển thị ảnh chụp ngay bên cạnh
-    let imgTag = document.getElementById('capturedImage');
-    imgTag.src = canvas.toDataURL('image/jpeg');
-}
+            let imageData = canvas.toDataURL("image/png"); // Chuyển ảnh thành Base64
+            document.getElementById("originalImage").src = imageData;
+
+            // Gửi ảnh lên Flask bằng AJAX
+            fetch("/upload", {
+                method: "POST",
+                body: JSON.stringify({ image: imageData }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("processedImage").src = "data:image/png;base64," + data.processed_image;
+            })
+            .catch(error => console.error("Lỗi gửi ảnh:", error));
+        }
 
         function startCamera() {
             navigator.mediaDevices.getUserMedia({ video: true })
