@@ -243,17 +243,22 @@
 </header>
 
     <main>
-        <div class="camera-section">
-            <h1>📸 Camera & Tai Hinh</h1>
-            <div class="video-container">
-                <video id="camera" autoplay></video>
-                <button onclick="startCamera()">📷 Bat Camera</button>
-            </div>
-            <div class="canvas-container">
-                <input type="file" id="upload" accept="image/*" onchange="loadImage(event)">
-                <canvas id="canvas"></canvas>
-            </div>
-        </div>
+       <div class="camera-section">
+    <h1>📸 Camera & Tải Hình</h1>
+    <div class="video-container">
+        <video id="camera" autoplay></video>
+        <button onclick="startCamera()">📷 Bật Camera</button>
+        <button onclick="captureImage()">📸 Chụp Ảnh</button>
+    </div>
+    <div class="canvas-container">
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+</div>
+
+<div class="processing-section">
+    <h1>📷 Ảnh Chụp</h1>
+    <img id="capturedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
+</div>
 
         <div class="processing-section">
             <h1>🔍 Xu ly anh cay trong</h1>
