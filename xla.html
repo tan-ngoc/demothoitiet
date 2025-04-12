@@ -257,9 +257,15 @@
 </div>
 
 <div class="processing-section">
-    <h1>Ảnh mới nhất từ ESP32-CAM</h1>
-  <img id="latestImg" src="" alt="Đang tải ảnh..." />
-</div>
+    <<h2>🔴 Trực tiếp từ ESP32-CAM</h2>
+
+  <!-- LIVE STREAM -->
+  <img id="cam-stream" src="http://192.168.176.189/stream" width="400" height="300"
+       style="border: 2px solid #333; border-radius: 8px;" />
+
+  <br><br>
+  <!-- BUTTON CHỤP ẢNH -->
+  <button onclick="takePhoto()">📸 Chụp ảnh</button>
         <div class="processing-section">
     <h1>🎨 Ảnh Sau Xử Lý</h1>
     <img id="processedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
@@ -290,45 +296,22 @@
 </footer>
 
     <script>
-         function loadLatestImage() {
-      fetch('loadPhotos.php')
-        .then(res => res.text())
-        .then(filename => {
-          if (filename) {
-            const img = document.getElementById('latestImg');
-            const ts = new Date().getTime(); // Để tránh cache ảnh cũ
-            img.src = filename + '?t=' + ts;
-          }
-        });
-    }
+         function takePhoto() {
+    fetch("http://192.168.176.189/capture")
+    .then(response => response.blob())
+    .then(blob => {
+      const formData = new FormData();
+      formData.append('image', blob, 'capture.jpg');
 
-    // Load ảnh mới nhất mỗi 10 giây
-    loadLatestImage();
-    setInterval(loadLatestImage, 10000);
-        function captureAndProcessImage() {
-    let video = document.getElementById('camera');
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    canvas.toBlob((blob) => {
-        let formData = new FormData();
-        formData.append("image", blob, "capture.jpg");
-
-        fetch("http://127.0.0.1:5000/process_image", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            let imgTag = document.getElementById('processedImage');
-            imgTag.src = "data:image/jpeg;base64," + data.processed_image;
-        });
-    }, "image/jpeg");
-}
+      fetch('upload_img.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.text())
+      .then(data => alert("Kết quả: " + data))
+      .catch(err => alert("Lỗi khi gửi ảnh: " + err));
+    });
+  }
 
        function captureImage() {
     let video = document.getElementById('camera');
