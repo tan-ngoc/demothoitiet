@@ -257,8 +257,8 @@
 </div>
 
 <div class="processing-section">
-    <h1>📷 Ảnh Chụp</h1>
-    <img id="capturedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
+    <h1>Ảnh mới nhất từ ESP32-CAM</h1>
+  <img id="latestImg" src="" alt="Đang tải ảnh..." />
 </div>
         <div class="processing-section">
     <h1>🎨 Ảnh Sau Xử Lý</h1>
@@ -290,6 +290,21 @@
 </footer>
 
     <script>
+         function loadLatestImage() {
+      fetch('loadPhotos.php')
+        .then(res => res.text())
+        .then(filename => {
+          if (filename) {
+            const img = document.getElementById('latestImg');
+            const ts = new Date().getTime(); // Để tránh cache ảnh cũ
+            img.src = filename + '?t=' + ts;
+          }
+        });
+    }
+
+    // Load ảnh mới nhất mỗi 10 giây
+    loadLatestImage();
+    setInterval(loadLatestImage, 10000);
         function captureAndProcessImage() {
     let video = document.getElementById('camera');
     let canvas = document.getElementById('canvas');
