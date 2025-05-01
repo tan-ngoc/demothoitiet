@@ -1,57 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>ESP32-CAM Photo Gallery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .flex-container {
-      display: flex;
-      flex-wrap: wrap;
-    }
-    .flex-container > div {
-      text-align: center;
-      margin: 10px;
-    }
-  </style>
-</head><body>
-<h2>ESP32-CAM Photo Gallery</h2>
 <?php
-  // Image extensions
-  $image_extensions = array("png","jpg","jpeg","gif");
+$upload_dir = "uploads/";
 
-  // Check delete HTTP GET request - remove images
-  if(isset($_GET["delete"])){
-    $imageFileType = strtolower(pathinfo($_GET["delete"],PATHINFO_EXTENSION));
-    if (file_exists($_GET["delete"]) && ($imageFileType == "jpg" ||  $imageFileType == "png" ||  $imageFileType == "jpeg") ) {
-      echo "File found and deleted: " .  $_GET["delete"];
-      unlink($_GET["delete"]);
+// Xử lý xóa 1 ảnh
+if (isset($_POST['delete_file'])) {
+    $filename = basename($_POST['delete_file']);
+    $filepath = $upload_dir . $filename;
+
+    if (file_exists($filepath)) {
+        unlink($filepath);
     }
-    else {
-      echo 'File not found - <a href="gallery.php">refresh</a>';
-    }
-  }
-  // Target directory
-  $dir = 'uploads/';
-  if (is_dir($dir)){
-    echo '<div class="flex-container">';
-    $count = 1;
-    $files = scandir($dir);
-    rsort($files);
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Xử lý xóa tất cả ảnh gốc (ảnh bắt đầu bằng snapshot_)
+if (isset($_POST['delete_all'])) {
+    $files = glob($upload_dir . "snapshot_*.jpg");
     foreach ($files as $file) {
-      if ($file != '.' && $file != '..') {?>
-        <div>
-          <p><a href="gallery.php?delete=<?php echo $dir . $file; ?>">Delete file</a> - <?php echo $file; ?></p>
-          <a href="<?php echo $dir . $file; ?>">
-            <img src="<?php echo $dir . $file; ?>" style="width: 350px;" alt="" title=""/>
-          </a>
-       </div>
-<?php
-       $count++;
-      }
+        if (is_file($file)) {
+            unlink($file);
+        }
     }
-  }
-  if($count==1) { echo "<p>No images found</p>"; } 
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Lấy danh sách ảnh gốc snapshot_
+$image_files = glob($upload_dir . "snapshot_*.jpg");
+
+// Sắp xếp theo thời gian mới nhất
+usort($image_files, function($a, $b) {
+    return filemtime($b) - filemtime($a);
+});
+
+// Giao diện hiển thị
+echo "<h2>📷 Ảnh gốc từ Camera IP</h2>";
+
+// Nút xóa tất cả
+echo "<form method='POST' onsubmit='return confirm(\"Bạn có chắc muốn xóa tất cả ảnh gốc?\")'>";
+echo "<input type='hidden' name='delete_all' value='1'>";
+echo "<button type='submit' style='margin: 10px 0; background-color:red; color:white; padding:5px;'>🗑️ Xóa tất cả ảnh gốc</button>";
+echo "</form>";
+
+echo "<div style='display: flex; flex-wrap: wrap; gap: 10px;'>";
+
+if (!empty($image_files)) {
+    foreach ($image_files as $file) {
+        $filename = basename($file);
+        $upload_time = date("Y-m-d H:i:s", filemtime($file));
+
+        echo "<div style='border: 1px solid #ccc; padding: 5px; text-align:center;'>";
+        echo "<img src='$upload_dir$filename' width='200'><br>";
+        echo "<small>$upload_time</small><br>";
+        echo "<form method='POST' style='margin-top:5px;'>
+                <input type='hidden' name='delete_file' value='$filename'>
+                <button type='submit' style='color:red;'>Xóa ảnh</button>
+              </form>";
+        echo "</div>";
+    }
+} else {
+    echo "<p>Không có ảnh gốc nào.</p>";
+}
+
+echo "</div>";
 ?>
-  </div>
-</body>
-</html>
+//gallery
