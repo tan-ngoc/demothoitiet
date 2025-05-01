@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Xu Ly Anh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Xử Lý Ảnh</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+        @media (max-width: 768px) {
+        .split-container {
+            flex-direction: column;
+        }
+        }
+
         html, body {
             height: 100%;
             font-family: 'Poppins', sans-serif;
-            background: url('https://visitvinhphuc.com/DataFiles/2024/01/Blog/20240108-104201-eFmbkjIz.webp')
-    no-repeat center center fixed;
+            background: url('https://visitvinhphuc.com/DataFiles/2024/01/Blog/20240108-104201-eFmbkjIz.webp') no-repeat center center fixed;
             background-size: cover;
             color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        
+
         header {
             background-color: rgba(52, 152, 219, 0.9);
             color: white;
@@ -30,18 +36,35 @@
             padding: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            width: 90px; /* chỉnh kích thước logo tùy ý */
+            height: 70px;
+        }
+
+        .header-text {
+            flex: 1;
+            text-align: center;
+        }
+
         .header-container h1 {
             font-size: 1.5em;
             margin-bottom: 10px;
             font-weight: bold;
             letter-spacing: 2px;
         }
+
         .header-container p {
             font-size: 1.2em;
             font-weight: 300;
             margin-top: 10px;
         }
-        
+
         main {
             display: flex;
             flex-direction: row;
@@ -55,10 +78,8 @@
             border-radius: 10px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             margin: 50px auto;
-               
         }
 
-     
         .camera-section, .processing-section {
             flex: 1;
             background: white;
@@ -143,8 +164,6 @@
             width: 100%;
             max-width: 250px;
         }
-        <button onclick="deleteImage()">🗑 Xóa ảnh</button>
-
 
         input {
             background: #444;
@@ -154,7 +173,7 @@
             margin-top: 10px;
         }
 
-        footer {
+       footer {
             background-color: rgba(52, 73, 94, 0.9);
             color: white;
             text-align: center;
@@ -163,19 +182,18 @@
         }
         footer p {
             margin: 0;
-            margin-bottom: 14px;
         }
         footer a {
-            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 25px;
+            font-size: 1.1em;
             color: white;
-            font-size: 1rem;
             background-color: #2980b9;
-            padding: 10px 20px;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
-            margin-top: 
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
         }
-        
 
         .marquee {
             position: fixed;
@@ -199,11 +217,11 @@
             0% {
                 transform: translateX(10%);
             }
-
             100% {
                 transform: translateX(-100%);
             }
         }
+
         @media (max-width: 768px) {
             main {
                 flex-direction: column;
@@ -219,7 +237,8 @@
                 font-size: 2rem;
             }
         }
-         footer .back-button {
+
+        footer .back-button {
             display: inline-block;
             margin-top: 5px;
             padding: 10px 20px;
@@ -232,101 +251,111 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
         }
+        .gallery-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .gallery-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <h1>Truong Dai Hoc Nong Lam TP HCM</h1>
-        <p>Khoa Co Khi- Cong Nghe</p>
-    </div>
-</header>
+   <header>
+        <div class="header-container">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.GmkQFxCZBpun63VJuK8V2gEsDI&rs=1&pid=ImgDetMain" alt="Logo Trái" class="logo left-logo">
+            
+            <div class="header-text">
+                <h1>Trường Đại Học Nông Lâm TP HCM</h1>
+                <p>Khoa Cơ Khí - Công Nghệ</p>
+            </div>
+
+            <img src="https://th.bing.com/th/id/OIP.tACLYaOzwihXcWXVIcOvOAHaEK?rs=1&pid=ImgDetMain" alt="Logo Phải" class="logo right-logo">
+        </div>
+    </header>
 
     <main>
-       <div class="camera-section">
-    <h1>📸 Camera & Tải Hình</h1>
-    <div class="video-container">
-        <video id="camera" autoplay></video>
-        <button onclick="startCamera()">📷 Bật Camera</button>
-        <button onclick="captureImage()">📸 Chụp Ảnh</button>
-        <button onclick="uploadImage()">🚀 Gửi Ảnh</button>
-    </div>
-    <div class="canvas-container">
-        <canvas id="canvas" style="display: none;"></canvas>
-    </div>
-</div>
-
-<div class="processing-section">
-    <<h2>🔴 Trực tiếp từ ESP32-CAM</h2>
-
-  <!-- LIVE STREAM -->
-  <img id="cam-stream" src="http://192.168.176.189/stream" width="400" height="300"
-       style="border: 2px solid #333; border-radius: 8px;" />
-
-  <br><br>
-  <!-- BUTTON CHỤP ẢNH -->
-  <button onclick="takePhoto()">📸 Chụp ảnh</button>
-        <div class="processing-section">
-    <h1>🎨 Ảnh Sau Xử Lý</h1>
-    <img id="processedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
-</div>
+        <div class="camera-section">
+            <h1>📸 Camera & Tải Hình</h1>
+            <div class="video-container">
+                <video id="camera" autoplay></video>
+                <button onclick="startCamera()">📷 Bật Camera</button>
+                <button onclick="captureImage()">📸 Chụp Ảnh</button>
+                <form action="gallery.php" method="get">
+    <button class="gallery-button" type="submit">Xem Thư Viện Ảnh</button>
+</form>
+                <button onclick="deleteImage()">🗑 Xóa Ảnh</button>
+            </div>
+            <div class="canvas-container">
+                <canvas id="canvas" style="display: none;"></canvas>
+            </div>
+        </div>
 
         <div class="processing-section">
-            <h1>🔍 Xu ly anh cay trong</h1>
+       <h1>📸 Ảnh mới nhất từ ESP32-CAM:</h1>
+       <div id="gallery">
+        Đang tải ảnh...
+
+        <div class="processing-section">
+            <h1>🎨 Ảnh Sau Xử Lý</h1>
+            <img id="processedImage" style="max-width: 100%; border: 2px solid #ddd; border-radius: 10px;">
+        </div>
+
+        <div class="processing-section">
+            <h1>🔍 Xử Lý Ảnh Cây Trồng</h1>
             <div class="button-container">
-                <button onclick="detectDisease()">🦠Phat hien benh</button>
-                <button onclick="analyzeColor()">🌿Phan tich mau sac la</button>
-                <button onclick="identifyPlant()">🌾Nhan dien loai cay</button>
-                <button onclick="trackGrowth()">📊Theo doi phat trien</button>
-                <button onclick="countLeaves()">🔢Đem so luong la/qua</button>
-                <button onclick="estimateNDVI()">🌍Uoc tinh chi so suc khoe (NDVI, GLI)</button>
+                <button onclick="detectDisease()">🦠 Phát hiện bệnh</button>
+                <button onclick="analyzeColor()">🌿 Phân tích màu sắc lá</button>
+                <button onclick="identifyPlant()">🌾 Nhận diện loại cây</button>
+                <button onclick="trackGrowth()">📊 Theo dõi phát triển</button>
+                <button onclick="countLeaves()">🔢 Đếm số lượng lá/quả</button>
+                <button onclick="estimateNDVI()">🌍 Ước tính chỉ số sức khỏe (NDVI, GLI)</button>
             </div>
         </div>
     </main>
 
-<div class="marquee">
-   <span> <i class="fas fa-home"></i> Giang Vien Huong dan: Th/s Cao Đuc Loi  __ <i class="fa fa-user"></i> Truong Van Nguyen 21138151 __ <i class="fa fa-user"></i> Nguyen Ngoc Tan 21138174</span>
-</div>
+    <div class="marquee">
+        <span> <i class="fas fa-home"></i> Giảng Viên Hướng dẫn: Th/s Cao Đức Lợi  __ <i class="fa fa-user"></i> Trương Văn Nguyên 21138151 __ <i class="fa fa-user"></i> Nguyễn Ngọc Tân 21138174</span>
+    </div>
 
-<footer>
-    <p>&copy; 2025 He Thong Cham Soc Dua Luoi Trong Nha Mang Su Dung Xu Ly Anh</p>
-    <p>DH21TD - Đe Tai 2</p>
-    <a href="index.html" class="back-button">Quay Lại Trang Chủ</a>
-    <p><i class="fas fa-school"></i></p>
-</footer>
+    <footer>
+        <p>&copy; 2025 Hệ thống chăm sóc dưa lưới trong nhà sử dụng xử lý ảnh</p>
+        <p>DH21TD - Đề tài 2</p>
+        <a href="index.html" class="back-button">Quay lại trang chủ</a>
+        
+    </footer>
 
     <script>
-         function takePhoto() {
-    fetch("http://192.168.176.189/capture")
-    .then(response => response.blob())
-    .then(blob => {
-      const formData = new FormData();
-      formData.append('image', blob, 'capture.jpg');
+    
+    function loadImage() {
+            fetch("loadPhotos.php")
+                .then(res => res.text())
+                .then(filename => {
+                    document.getElementById("latestImage").src = "uploads/" + filename + "?" + new Date().getTime();
+                });
+    }
+        setInterval(loadImage, 10000); // Mỗi 10 giây tải lại ảnh
+        window.onload = loadImage;
+    
+        function captureImage() {
+            let video = document.getElementById('camera');
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
 
-      fetch('upload_img.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.text())
-      .then(data => alert("Kết quả: " + data))
-      .catch(err => alert("Lỗi khi gửi ảnh: " + err));
-    });
-  }
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-       function captureImage() {
-    let video = document.getElementById('camera');
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
-
-    // Lấy kích thước video và vẽ lên canvas
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    // Hiển thị ảnh chụp ngay bên cạnh
-    let imgTag = document.getElementById('capturedImage');
-    imgTag.src = canvas.toDataURL('image/jpeg');
-}
+            let imgTag = document.getElementById('capturedImage');
+            imgTag.src = canvas.toDataURL('image/jpeg');
+        }
 
         function startCamera() {
             navigator.mediaDevices.getUserMedia({ video: true })
@@ -334,65 +363,47 @@
                     document.getElementById('camera').srcObject = stream;
                 })
                 .catch(error => {
-                    console.error("loi khi mo camera:", error);
+                    console.error("Lỗi khi mở camera:", error);
                 });
         }
 
         function uploadImage() {
-    let canvas = document.getElementById('canvas');
-    canvas.toBlob((blob) => {
-        let formData = new FormData();
-        formData.append("image", blob, "capture.jpg");
-
-        fetch("http://127.0.0.1:5000/process_image", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            let imgTag = document.getElementById('processedImage');
-            imgTag.src = "data:image/jpeg;base64," + data.processed_image;
-        })
-        .catch(error => console.error("Lỗi khi gửi ảnh:", error));
-    }, "image/jpeg");
-}
+            
+        }
 
         function deleteImage() {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.width = 0;
-    canvas.height = 0;
-    document.getElementById('upload').value = ""; // Xóa file đã chọn
-}
-
-        
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = 0;
+            canvas.height = 0;
+            document.getElementById('capturedImage').src = "";
+            document.getElementById('processedImage').src = "";
+        }
 
         function detectDisease() {
-            alert("se đuoc them sau!");
+           window.location.href = "testxla.php";
         }
 
         function analyzeColor() {
-            alert("se đuoc them sau!");
+            alert("Chức năng sẽ được thêm sau!");
         }
 
         function identifyPlant() {
-            alert("se đuoc them sau!");
+            alert("Chức năng sẽ được thêm sau!");
         }
 
         function trackGrowth() {
-            alert("se đuoc them sau!");
+            alert("Chức năng sẽ được thêm sau!");
         }
 
         function countLeaves() {
-            alert("se đuoc them sau!");
+            alert("Chức năng sẽ được thêm sau!");
         }
 
         function estimateNDVI() {
-            alert("se đuoc them sau!");
+            alert("Chức năng sẽ được thêm sau!");
         }
     </script>
 </body>
 </html>
-
-
